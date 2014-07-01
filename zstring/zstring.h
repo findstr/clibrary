@@ -12,8 +12,8 @@ typedef const wchar_t * (zstring_skip_w_t)(const wchar_t *);
 typedef const wchar_t * (zstring_skip_a_t)(const wchar_t *);
 
 #define	zstring_len(str, terminal)			zstring_len_w(str)
-#define	zstring_sztoul(p, char_cnt, base, terminal)	zstring_sztoul_w(p, char_cnt, base)
-#define	zstring_copy(dst, src, n, terminal)		zstring_copy_w(dst, src, n)
+#define	zstring_sztoul(p, char_cnt, base, terminal)	zstring_sztoul_w(p, char_cnt, base, terminal)
+#define	zstring_copy(dst, src, n, terminal)		zstring_copy_w(dst, src, n, terminal)
 #define	zstring_token(dst, src, n, sep, skip, termi)	zstring_token_w(dsr, src, n, sep, skip, termi)
 #define zstring_str(src, dst, terminal)			zstring_str_w(src, dst, terminal)
 
