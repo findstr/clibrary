@@ -54,17 +54,20 @@
 //
 ///*--------------------------------ASCII---------------------------------------------*/
 //
-int zstring_len_a(const char *str, int terminal_ch)
-{
-        const char *p;
-
-        p = str;
-        while (*str != terminal_ch && *str != L'\0')
-                str++;
-
-        return str - p;
-}
-
+//int zstring_len_a(const char *str)
+//{
+//        const char *p;
+//
+//	if (a_skip)
+//		str = a_skip(str);
+//
+//        p = str;
+//
+//        while (*str != terminal_ch && *str != '\0')
+//                str++;
+//
+//        return str - p;
+//}
 //
 //static unsigned long sztoul_10_a(const char *ptr, int cnt)
 //{
@@ -111,47 +114,27 @@ int zstring_len_a(const char *str, int terminal_ch)
 //        return value;
 //}
 //
-
-char *zstring_token_a(char *dst, const char *src, int n, int sep, zstring_skip_a_t *skip, int terminal_ch)
-{
-	char *ret;
-
-	assert(dst);
-	assert(src);
-
-	if (skip)
-		src = skip(src);
-
-	while (n-- > 0 && (*src != sep) && (*dst = *src) != terminal_ch && (*src != L'\0')) {
-		dst++;
-		src++;
-	}
-
-	*dst = 0;
-	if (*src == terminal_ch || *src == L'\0')
-		return NULL;
-	else
-		return (char *)++src;
-}
-
-char *zstring_copy_a(char *dst, const char *src, int n, int terminal_ch)
-{
-	char *ret;
-
-	assert(dst);
-	assert(src);
-
-	ret = dst;
-
-	while (n-- > 0 && (*dst = *src) != terminal_ch) {
-		dst++;
-		src++;
-	}
-
-	*dst = 0;
-
-	return ret;
-}
+//char *zstring_copy_a(char *dst, const char *src, int n)
+//{
+//	char *ret;
+//
+//	assert(dst);
+//	assert(src);
+//
+//	if (a_skip)
+//		src = a_skip(src);
+//
+//	ret = dst;
+//
+//	while (n-- > 0 && (*dst = *src) != terminal_ch) {
+//		dst++;
+//		src++;
+//	}
+//
+//	*dst = 0;
+//
+//	return ret;
+//}
 
 /*--------------------------------unicode---------------------------------------------*/
 int zstring_len_w(const wchar_t *str, int terminal_ch)
@@ -275,7 +258,7 @@ wchar_t *zstring_token_w(wchar_t *dst, const wchar_t *src, int n, int sep, zstri
 	if (*src == terminal_ch || *src == L'\0')
 		return NULL;
 	else
-		return (wchar_t *)++src;
+		return ++src;
 }
 
 static __inline int w_equ(const wchar_t *src, const wchar_t *dst, int terminal_ch)
@@ -294,13 +277,16 @@ static __inline int w_equ(const wchar_t *src, const wchar_t *dst, int terminal_c
 wchar_t *zstring_str_w(const wchar_t *src, const wchar_t *dst, int terminal_ch)
 {
 	int equ;
-	
-        do {
+	wchar_t *p;
+
+	p = src;
+
+	do {
 		equ = w_equ(src, dst, terminal_ch);
 		src++;
 	} while (!equ && (*src != terminal_ch) && (*src != L'\0'));
 
 	if (equ)
-		return (wchar_t *)--src;
+		return --src;
 	return NULL; 
 }
